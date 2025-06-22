@@ -1,0 +1,65 @@
+version: '3.7'
+
+services:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:latest
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    restart: always
+    networks:
+      - proxy-net
+
+  letsencrypt:
+    image: nginxproxy/acme-companion:latest
+    container_name: letsencrypt-nginx-proxy-companion
+    volumes:
+      - certs:/etc/nginx/certs
+      - vhost:/etc/nginx/vhost.d
+      - html:/usr/share/nginx/html
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DEFAULT_EMAIL=dan.annanurov@gmail.com
+      - NGINX_PROXY_CONTAINER=nginx-proxy
+    restart: always
+    networks:
+      - proxy-net
+    depends_on:
+      - nginx-proxy
+
+  whoami1:
+    image: jwilder/whoami
+    container_name: whoami1
+    environment:
+      - VIRTUAL_HOST=whoami1.daniyrsick.ru
+      - LETSENCRYPT_HOST=whoami1.daniyrsick.ru
+      - LETSENCRYPT_EMAIL=dan.annanurov@gmail.com
+    restart: always
+    networks:
+      - proxy-net
+
+  whoami2:
+    image: jwilder/whoami
+    container_name: whoami2
+    environment:
+      - VIRTUAL_HOST=whoami2.daniyrsick.ru
+      - LETSENCRYPT_HOST=whoami2.daniyrsick.ru
+      - LETSENCRYPT_EMAIL=dan.annanurov@gmail.com
+    restart: always
+    networks:
+      - proxy-net
+
+volumes:
+  certs:
+  vhost:
+  html:
+
+
+networks:
+  proxy-net:
