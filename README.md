@@ -2,6 +2,8 @@
 
 **Выполнил: Аннануров Даниил Петрович, группа ИВТ 1.2**
 
+* сервера больше нет 
+
 ---
 
 Этот репозиторий содержит `docker-compose.yaml` для развертывания связки Nginx Proxy + Let's Encrypt для обслуживания нескольких приложений с автоматическим получением SSL-сертификатов.
@@ -39,3 +41,11 @@
     docker compose up -d
     ```
     *(Примечание: команда `docker compose` используется без дефиса)* 
+
+
+![image](https://github.com/user-attachments/assets/aa0a6873-6821-4629-b2d3-fd0bfd5e640d)
+![image](https://github.com/user-attachments/assets/9e7aed68-819e-4c7a-945b-15f32addd27a)
+![image](https://github.com/user-attachments/assets/6a4de007-ed83-42f4-a56c-6ae105736d72)
+![image](https://github.com/user-attachments/assets/7c3b8b22-1948-417c-b9ca-c1ea5354a8cb)
+![image](https://github.com/user-attachments/assets/9d28ae2f-7d73-4aea-8a74-bc022eb30460)
+
